@@ -1,9 +1,14 @@
 import 'react-hot-loader/patch';
+import { AppContainer } from 'react-hot-loader';
+
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import App, { Routes } from '../imports/ui/App.jsx';
-import { AppContainer } from 'react-hot-loader';
+
+import 'framework7/dist/css/framework7.ios.min.css';
+import 'framework7/dist/css/framework7.ios.colors.min.css';
+import 'framework7/dist/js/framework7.js';
 
 // =====================
 // Server Side Rendering
@@ -23,7 +28,7 @@ Meteor.startup(() => {
 
 	// If the Hot Module Replacement is enabled
 	if(enableHMR) {
-		render(<AppContainer><App /></AppContainer>, document.getElementById('app'));
+		render(<AppContainer><App /></AppContainer>, document.getElementById('root'));
 
 		if (module.hot) {
 			module.hot.accept('../imports/ui/App.jsx', () => {
@@ -32,7 +37,7 @@ Meteor.startup(() => {
 					<AppContainer>
 						<NextApp />
 					</AppContainer>,
-					document.getElementById('app')
+					document.getElementById('root')
 				);
 			});
 		}
@@ -41,7 +46,7 @@ Meteor.startup(() => {
 
 	// If the Hot Module Replacement is not enabled
 	else {
-		ReactRouterSSR.Run(Routes, {rootElement: 'app'});
+		ReactRouterSSR.Run(Routes, {rootElement: 'root'});
 
 	}
 

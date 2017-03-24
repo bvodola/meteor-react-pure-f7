@@ -10,9 +10,7 @@ import HomeContainer from './containers/HomeContainer.jsx';
 // =================
 const Routes = (
 	<Route>
-		<Route component={Main}>
-			<Route path='/' component={HomeContainer} />
-		</Route>
+		<Route path='/' component={HomeContainer} />
 	</Route>
 );
 
@@ -20,8 +18,22 @@ const Routes = (
 // App Component
 // =============
 class App extends Component {
+
+	componentDidMount() {
+		let myApp = new Framework7({
+	    pushState: true,
+			pushStateSeparator: '/'
+		});
+
+		let mainView = myApp.addView('.view-main', {
+			domCache: true,
+			url: '/',
+			main: true
+		});
+	}
+
 	render() {
-		return (<Router history={browserHistory} routes={Routes} />);
+		return (<HomeContainer />);
 	}
 }
 
