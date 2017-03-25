@@ -1,16 +1,23 @@
 import React , {Component} from 'react';
-import { Router, Route, browserHistory } from 'react-router'
+import { Router, Route, browserHistory, hashHistory, IndexRoute } from 'react-router'
+import { RouteTransition } from 'react-router-transition';
 
+import TransitionLayout from './layouts/TransitionLayout.jsx';
 import Loading from './layouts/LoadingLayout.jsx';
 import Main from './layouts/MainLayout.jsx';
 import HomeContainer from './containers/HomeContainer.jsx';
+
+import About from './components/About.jsx';
+
+
 
 // =================
 // Routes Definition
 // =================
 const Routes = (
-	<Route>
-		<Route path='/' component={HomeContainer} />
+	<Route path='/' component={TransitionLayout}>
+		<IndexRoute component={HomeContainer} />
+		<Route path='about' component={About} />
 	</Route>
 );
 
@@ -20,20 +27,13 @@ const Routes = (
 class App extends Component {
 
 	componentDidMount() {
-		let myApp = new Framework7({
-	    pushState: true,
-			pushStateSeparator: '/'
-		});
-
-		let mainView = myApp.addView('.view-main', {
-			domCache: true,
-			url: '/',
-			main: true
+		let app = new Framework7({
+	    router: false
 		});
 	}
 
 	render() {
-		return (<HomeContainer />);
+		return (<Router history={browserHistory} routes={Routes} />);
 	}
 }
 
